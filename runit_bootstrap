@@ -1,3 +1,8 @@
 #!/bin/bash
 export > /etc/envvars
+if [ ! -e "/usr/local/mariadb/columnstore/etc/installed.log" ]; then
+  sh /install/install.sh
+  chmod 755 /etc/service/systemd-journald/run /etc/service/rsyslogd/run /etc/service/columnstore/run
+  touch "/usr/local/mariadb/columnstore/etc/installed.log"
+fi
 exec /usr/sbin/runsvdir-start
